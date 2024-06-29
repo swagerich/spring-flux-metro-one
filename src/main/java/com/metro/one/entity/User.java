@@ -45,11 +45,11 @@ public class User {
 
     @JsonIgnore
     @Transient
-    private Flux<TransportCard> transportCards;
+    private Flux<TransportCard> transportCards; //METROPOLITANO LINEA 1,LINEA 2
 
     @Transient
     @JsonIgnore
-    private Flux<BankCard> bankCards;
+    private Flux<BankCard> bankCards; //VISA,MASERCARD,AMEX
 
 
 

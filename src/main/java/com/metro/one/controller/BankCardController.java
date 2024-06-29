@@ -5,10 +5,8 @@ import com.metro.one.dto.response.BankCardResponse;
 import com.metro.one.services.BankCardService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
@@ -21,8 +19,18 @@ public class BankCardController {
         this.bankCardService = bankCardService;
     }
 
-    @PostMapping
-    public ResponseEntity<Mono<BankCardResponse>> createBankCard(@RequestBody  Mono<BankCardRequest> bankCard){
-        return new ResponseEntity<>(bankCardService.createBankCard(bankCard), HttpStatus.CREATED);
+    @PostMapping("/{userId}")
+    public ResponseEntity<Mono<BankCardResponse>> createBankCard(@RequestBody  Mono<BankCardRequest> bankCard, @PathVariable Long userId){
+        return new ResponseEntity<>(bankCardService.createBankCard(bankCard,userId), HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{userId}")
+    public ResponseEntity<Flux<BankCardResponse>> fetchAllBankCardByUserId(@PathVariable Long userId){
+        return new ResponseEntity<>(bankCardService.fetchAllBankCardByUserId(userId), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{bankCardId}")
+    public ResponseEntity<Mono<Void>> deleteByBankCardId(@PathVariable Long bankCardId){
+        return new ResponseEntity<>(bankCardService.deleteById(bankCardId), HttpStatus.OK);
     }
 }

@@ -8,7 +8,6 @@ import reactor.core.publisher.Mono;
 import java.time.LocalDate;
 
 @Data
-
 public class BankCardRequest {
 
     private Long cardNumber;
@@ -17,6 +16,8 @@ public class BankCardRequest {
 
     private Integer cvv;
 
+    private Long userId;
+
 
     public static Mono<BankCard> toEntity(Mono<BankCardRequest> bankCardRequest){
             return bankCardRequest.switchIfEmpty(Mono.error(new RuntimeException("BanCard is null")))
@@ -24,6 +25,7 @@ public class BankCardRequest {
                             .cardNumber(request.getCardNumber())
                             .expirationDate(request.getExpirationDate())
                             .cvv(request.getCvv())
+                            .userId(request.getUserId())
                             .build());
     }
 
