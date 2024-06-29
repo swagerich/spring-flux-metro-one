@@ -8,4 +8,9 @@ import lombok.Data;
 public class BankCardResponse {
 
     private Long userId;
+
+    private Long cardNumber;
+
+    private String expirationDate;
+
 }

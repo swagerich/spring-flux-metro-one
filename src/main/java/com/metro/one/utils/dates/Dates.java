@@ -10,4 +10,11 @@ public class Dates {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(patternYearMonth);
         return formatter.format(localDate);
     }
+
+    public static String toFormatToYearMonth(String localDate){
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate parse = LocalDate.parse(localDate, formatter);
+            return String.join("/", String.valueOf(parse.getDayOfMonth()), String.valueOf(parse.getYear()));
+
+    }
 }
