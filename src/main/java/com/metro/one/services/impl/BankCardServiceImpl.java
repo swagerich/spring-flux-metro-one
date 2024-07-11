@@ -3,6 +3,7 @@ package com.metro.one.services.impl;
 import com.metro.one.dto.request.BankCardRequest;
 import com.metro.one.dto.response.BankCardResponse;
 import com.metro.one.repository.BankCardRepository;
+import com.metro.one.repository.UserRepository;
 import com.metro.one.services.BankCardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ public class BankCardServiceImpl implements BankCardService {
 
     private final BankCardRepository bankCardRepository;
 
+    private final UserRepository userRepository;
 
     /**
      * AQUI DERIA DE CARGAR UNA API DE LA TARJETA (POR AHORA SE GUARDARA DINAMICAMENTE EN LA BD)
@@ -26,13 +28,12 @@ public class BankCardServiceImpl implements BankCardService {
      */
     @Override
     public Mono<BankCardResponse> createBankCard(Mono<BankCardRequest> bankCard, Long userId) {
-        return bankCardRepository.findById(userId).switchIfEmpty(Mono.error(new RuntimeException("User not found")))
-                .flatMap(value -> BankCardRequest.toEntity(bankCard).flatMap(b -> {
-                    b.setUserId(value.getUserId());
-                    return bankCardRepository.save(b).map(__ -> BankCardResponse.builder().userId(b.getUserId()).build());
+
+        return userRepository.findById(userId).switchIfEmpty(Mono.error(new RuntimeException("User not found"))).flatMap( user ->
+                 BankCardRequest.toEntity(bankCard).flatMap(bank -> {
+                     bank.setUserId(user.getUserId());
+                    return bankCardRepository.save(bank).map(__ -> BankCardResponse.builder().userId(bank.getUserId()).build());
                 }));
-
-
     }
 
     /**
