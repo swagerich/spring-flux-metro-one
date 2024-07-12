@@ -14,15 +14,9 @@ public class TransportCardResponse {
 
     private Long userId;
 
-    private String cardNumber;
+    private Long cardNumber;
 
     private BigDecimal balance;
-
-//    private TypeRechargeOfDays typeRechargeOfDays;
-//
-//    private LocalDateTime issuedAtRecharge;
-//
-//    private BigDecimal priceRecharge;
 
     private List<RechargeDto> rechargeDtoFlux;
 

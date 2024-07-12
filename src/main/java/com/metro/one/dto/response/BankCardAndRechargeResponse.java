@@ -11,7 +11,7 @@ public class BankCardAndRechargeResponse {
 
     private Integer typeRechargeOfDays;
 
-    private String cardNumber;
+    private Long cardNumber;
 
     private BigDecimal amount;
 }

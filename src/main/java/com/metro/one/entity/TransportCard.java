@@ -27,15 +27,11 @@ public class TransportCard {
     private Long transportCardId;
 
     @Column("card_number")
-    private String cardNumber;
+    private Long cardNumber;
 
     private BigDecimal balance;
 
     private Long userId;
-
-    //private BigDecimal priceRecharge;
-
-    //private LocalDateTime issuedAtRecharge;
 
     @JsonIgnore
     @Transient
