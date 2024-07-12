@@ -2,8 +2,8 @@ package com.metro.one.controller;
 
 import com.metro.one.dto.request.LoginRequest;
 import com.metro.one.dto.request.UserRequest;
+import com.metro.one.dto.response.UserRegister;
 import com.metro.one.dto.response.UserResponse;
-import com.metro.one.entity.User;
 import com.metro.one.services.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +24,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Mono<User>> create(@RequestBody UserRequest userRequest){
+    public ResponseEntity<Mono<UserRegister>> create(@RequestBody UserRequest userRequest){
         return new ResponseEntity<>(userService.register(userRequest), HttpStatus.CREATED);
     }
 

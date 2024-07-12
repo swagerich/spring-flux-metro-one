@@ -8,11 +8,8 @@ import org.springframework.data.annotation.Transient;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -27,15 +24,11 @@ public class TransportCard {
     private Long transportCardId;
 
     @Column("card_number")
-    private String cardNumber;
+    private Long cardNumber;
 
     private BigDecimal balance;
 
     private Long userId;
-
-    //private BigDecimal priceRecharge;
-
-    //private LocalDateTime issuedAtRecharge;
 
     @JsonIgnore
     @Transient
