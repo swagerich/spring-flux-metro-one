@@ -6,6 +6,7 @@ import com.metro.one.dto.response.UserRegister;
 import com.metro.one.dto.response.UserResponse;
 import com.metro.one.entity.TransportCard;
 import com.metro.one.entity.User;
+import com.metro.one.exception.BadRequestException;
 import com.metro.one.repository.TransportCardRepository;
 import com.metro.one.repository.UserRepository;
 import com.metro.one.services.UserService;
@@ -30,7 +31,7 @@ public class UserServiceImpl implements UserService {
         return Mono.just(userDto).flatMap(UserRequest::toEntity).flatMap(user -> userRepository.existsByDocumentNumberOrCardNumberOrEmail(user.getDocumentNumber(), user.getCardNumber(), user.getEmail())
                 .flatMap(exists -> {
                     if (exists) {
-                        return Mono.error(new RuntimeException("User already exists by document number, card number or email"));
+                        return Mono.error(new BadRequestException("User already exists by document number, card number or email"));
                     }
                     user.setRole(UserRoleEnum.USER.name());
                     return userRepository.save(user)

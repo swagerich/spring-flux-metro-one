@@ -1,9 +1,9 @@
-package com.metro.one.utils;
+package com.metro.one.services;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-public interface CrudMetroOne<E, ID> {
+public sealed interface CrudMetroOne<E, ID> permits BankCardService, RechargeService, TransportCardService, UserService {
 
     default Mono<E> save(E entity) {
         return null;

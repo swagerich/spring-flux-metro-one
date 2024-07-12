@@ -2,6 +2,7 @@ package com.metro.one.services.impl;
 
 import com.metro.one.dto.request.BankCardRequest;
 import com.metro.one.dto.response.BankCardResponse;
+import com.metro.one.exception.NotFoundException;
 import com.metro.one.repository.BankCardRepository;
 import com.metro.one.repository.UserRepository;
 import com.metro.one.services.BankCardService;
@@ -29,7 +30,7 @@ public class BankCardServiceImpl implements BankCardService {
     @Override
     public Mono<BankCardResponse> createBankCard(Mono<BankCardRequest> bankCard, Long userId) {
 
-        return userRepository.findById(userId).switchIfEmpty(Mono.error(new RuntimeException("User not found"))).flatMap( user ->
+        return userRepository.findById(userId).switchIfEmpty(Mono.error(new NotFoundException("User "+ userId +" not found"))).flatMap(user ->
                  BankCardRequest.toEntity(bankCard).flatMap(bank -> {
                      bank.setUserId(user.getUserId());
                     return bankCardRepository.save(bank).map(__ -> BankCardResponse.builder().userId(bank.getUserId()).build());
@@ -44,7 +45,7 @@ public class BankCardServiceImpl implements BankCardService {
      */
     @Override
     public Flux<BankCardResponse> fetchAllBankCardByUserId(Long userId) {
-        return bankCardRepository.findAllByUserId(userId).switchIfEmpty(Mono.error(new RuntimeException("User Not Found"))).map(
+        return bankCardRepository.findAllByUserId(userId).switchIfEmpty(Mono.error(new NotFoundException("User "+ userId +"Not Found"))).map(
                 b -> BankCardResponse.builder().cardNumber(b.getCardNumber()).expirationDate(toFormatToYearMonth(b.getExpirationDate().toString())).build()
         );
     }
@@ -58,7 +59,7 @@ public class BankCardServiceImpl implements BankCardService {
     @Override
     public Mono<Void> deleteById(Long bankCardId) {
         return bankCardRepository.findById(bankCardId)
-                .switchIfEmpty(Mono.error(new RuntimeException("BankCard id : " + bankCardId + " Not found")))
+                .switchIfEmpty(Mono.error(new NotFoundException("BankCard id : " + bankCardId + " Not found")))
                 .flatMap(bankCardRepository::delete);
     }
 }

@@ -2,6 +2,7 @@ package com.metro.one.services.impl;
 
 import com.metro.one.dto.RechargeDto;
 import com.metro.one.dto.response.TransportCardResponse;
+import com.metro.one.exception.NotFoundException;
 import com.metro.one.repository.RechargeRepository;
 import com.metro.one.repository.TransportCardRepository;
 import com.metro.one.services.TransportCardService;
@@ -50,8 +51,8 @@ public class TransportCardServiceImpl implements TransportCardService {
      */
     @Override
     public Mono<TransportCardResponse> fetchTransportCardByUserIdOrTransporCardId(Long userId, Long transportCardId) {
-       return  transportCardRepository.findByUserId(userId).switchIfEmpty(Mono.error(new RuntimeException("userId not Found")))
-                .flatMap(transportCard -> rechargeRepository.findByTransportCardId(transportCardId).switchIfEmpty(Mono.error(new RuntimeException("transportCardId not Found")))
+       return  transportCardRepository.findByUserId(userId).switchIfEmpty(Mono.error(new NotFoundException("userId not Found")))
+                .flatMap(transportCard -> rechargeRepository.findByTransportCardId(transportCardId).switchIfEmpty(Mono.error(new NotFoundException("transportCardId not Found")))
                         .map(recharge -> RechargeDto.builder()
                                 .typeRechargeOfDays(TypeRechargeOfDays.fromValue(recharge.getTypeRechargeOfDays()))
                                 .issuedAtRecharge(recharge.getCreateAt())
