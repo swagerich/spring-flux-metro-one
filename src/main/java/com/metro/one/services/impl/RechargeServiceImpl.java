@@ -3,6 +3,7 @@ package com.metro.one.services.impl;
 import com.metro.one.dto.request.PaymentBankCard;
 import com.metro.one.dto.response.BankCardAndRechargeResponse;
 import com.metro.one.entity.Recharge;
+import com.metro.one.exception.NotFoundException;
 import com.metro.one.repository.BankCardRepository;
 import com.metro.one.repository.RechargeRepository;
 import com.metro.one.repository.TransportCardRepository;
@@ -65,10 +66,10 @@ public class RechargeServiceImpl implements RechargeService {
                 return Mono.error(new IllegalArgumentException("Invalid typeRechargeOfDays"));
         }
         return transportCardRepository.findById(transportCardId)
-                .switchIfEmpty(Mono.error(new RuntimeException("Not Found Recharge for this card")))
+                .switchIfEmpty(Mono.error(new NotFoundException("Not Found Recharge for this card")))
                 .flatMap(recharge ->
                         bankCardRepository.findById(bankCardId)
-                                .switchIfEmpty(Mono.error(new RuntimeException("Not Found Recharge for this card and bank card")))
+                                .switchIfEmpty(Mono.error(new NotFoundException("Not Found Recharge for this card and bank card")))
                                 .flatMap(__ -> {
 
                                     var newRecharge = Recharge.builder()
