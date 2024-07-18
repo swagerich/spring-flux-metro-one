@@ -1,5 +1,6 @@
 package com.metro.one.controller;
 
+import com.metro.one.controller.api.AuthApi;
 import com.metro.one.dto.request.LoginRequest;
 import com.metro.one.dto.request.UserRequest;
 import com.metro.one.dto.response.UserRegister;
@@ -7,15 +8,13 @@ import com.metro.one.dto.response.UserResponse;
 import com.metro.one.services.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("auth")
-public class AuthController {
+public class AuthController implements AuthApi {
 
     private final UserService userService;
 
@@ -23,13 +22,13 @@ public class AuthController {
         this.userService = userService;
     }
 
-    @PostMapping("/register")
-    public ResponseEntity<Mono<UserRegister>> create(@RequestBody UserRequest userRequest){
+    @Override
+    public ResponseEntity<Mono<UserRegister>> create(UserRequest userRequest) {
         return new ResponseEntity<>(userService.register(userRequest), HttpStatus.CREATED);
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<Mono<UserResponse>> login (@RequestBody LoginRequest loginRequest){
+    @Override
+    public ResponseEntity<Mono<UserResponse>> login(LoginRequest loginRequest) {
         return ResponseEntity.ok(userService.login(loginRequest));
     }
 }

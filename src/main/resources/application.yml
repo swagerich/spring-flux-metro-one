@@ -11,3 +11,6 @@ spring:
     url: jdbc:postgresql://localhost:5432/metro_one
     locations: classpath:db/migration
 
+springdoc:
+  swagger-ui:
+    path: /swagger-ui-metro/index.html

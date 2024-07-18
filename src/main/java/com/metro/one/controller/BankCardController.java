@@ -1,5 +1,6 @@
 package com.metro.one.controller;
 
+import com.metro.one.controller.api.BankCardApi;
 import com.metro.one.dto.request.BankCardRequest;
 import com.metro.one.dto.response.BankCardResponse;
 import com.metro.one.services.BankCardService;
@@ -10,8 +11,8 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("/bank-card")
-public class BankCardController {
+@RequestMapping("bank-card")
+public class BankCardController implements BankCardApi {
 
     private final BankCardService bankCardService;
 
@@ -19,18 +20,18 @@ public class BankCardController {
         this.bankCardService = bankCardService;
     }
 
-    @PostMapping("/{userId}")
-    public ResponseEntity<Mono<BankCardResponse>> createBankCard(@RequestBody  Mono<BankCardRequest> bankCard, @PathVariable Long userId){
+    @Override
+    public ResponseEntity<Mono<BankCardResponse>> createBankCard(Mono<BankCardRequest> bankCard, Long userId) {
         return new ResponseEntity<>(bankCardService.createBankCard(bankCard,userId), HttpStatus.CREATED);
     }
 
-    @GetMapping("/{userId}")
-    public ResponseEntity<Flux<BankCardResponse>> fetchAllBankCardByUserId(@PathVariable Long userId){
+    @Override
+    public ResponseEntity<Flux<BankCardResponse>> fetchAllBankCardByUserId(Long userId) {
         return new ResponseEntity<>(bankCardService.fetchAllBankCardByUserId(userId), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{bankCardId}")
-    public ResponseEntity<Mono<Void>> deleteByBankCardId(@PathVariable Long bankCardId){
+    @Override
+    public ResponseEntity<Mono<Void>> deleteByBankCardId(Long bankCardId) {
         return new ResponseEntity<>(bankCardService.deleteById(bankCardId), HttpStatus.OK);
     }
 }
