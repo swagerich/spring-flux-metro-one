@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Mono<UserResponse> login(LoginRequest login) {
         Mono<User> userMono = userRepository.findByDocumentNumberAndPassword(login.getDni(), login.getPassword());
-        return userMono.switchIfEmpty(Mono.error(new RuntimeException("User Or Password Incorrect")))
+        return userMono.switchIfEmpty(Mono.error(new BadRequestException("User Or Password Incorrect")))
                 .flatMap(x -> Mono.just(UserResponse.builder().bearer("bearer").token("token").build()));
     }
 }
