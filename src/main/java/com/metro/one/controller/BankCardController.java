@@ -6,12 +6,15 @@ import com.metro.one.dto.response.BankCardResponse;
 import com.metro.one.services.BankCardService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
+import static com.metro.one.utils.endpoints.ApiVersion.*;
+
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("bank-card")
+@RequestMapping(V1 + "bank-card")
 public class BankCardController implements BankCardApi {
 
     private final BankCardService bankCardService;
@@ -22,7 +25,7 @@ public class BankCardController implements BankCardApi {
 
     @Override
     public ResponseEntity<Mono<BankCardResponse>> createBankCard(Mono<BankCardRequest> bankCard, Long userId) {
-        return new ResponseEntity<>(bankCardService.createBankCard(bankCard,userId), HttpStatus.CREATED);
+        return new ResponseEntity<>(bankCardService.createBankCard(bankCard, userId), HttpStatus.CREATED);
     }
 
     @Override

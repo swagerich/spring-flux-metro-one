@@ -5,11 +5,14 @@ import com.metro.one.dto.response.BankCardAndRechargeResponse;
 import com.metro.one.services.RechargeService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import static com.metro.one.utils.endpoints.ApiVersion.*;
+
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("recharge")
+@RequestMapping(V1 + "recharge")
 public class RechargeController implements RechargeApi {
 
     private final RechargeService rechargeService;
@@ -25,7 +28,7 @@ public class RechargeController implements RechargeApi {
 
     @Override
     public ResponseEntity<Mono<BankCardAndRechargeResponse>> paymentBankCardAndRecharge(Long bankCardId, Long transportCardId, Integer typeRechargeOfDays) {
-        return ResponseEntity.ok(rechargeService.paymentBankCard(bankCardId,transportCardId,typeRechargeOfDays));
+        return ResponseEntity.ok(rechargeService.paymentBankCard(bankCardId, transportCardId, typeRechargeOfDays));
     }
 
 }
