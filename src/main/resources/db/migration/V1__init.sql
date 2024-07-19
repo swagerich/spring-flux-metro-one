@@ -4,12 +4,12 @@ CREATE TABLE "users"
     "name"      varchar,
     "last_name" varchar,
     "document_type" varchar,
-    "document_number" integer UNIQUE,
+    "document_number" varchar UNIQUE,
     "password"  varchar,
     "phone"     varchar,
     "email"     varchar UNIQUE,
-    "card_number" integer UNIQUE,
-    "role"      varchar
+    "card_number" bigint UNIQUE,
+    "roles"      varchar
 );
 
 CREATE TABLE "transport_cards"
@@ -23,7 +23,7 @@ CREATE TABLE "transport_cards"
 CREATE TABLE "bank_cards"
 (
     "bankcard_id"     SERIAL PRIMARY KEY,
-    "card_number"     integer UNIQUE,
+    "card_number"     bigint UNIQUE,
     "expiration_date" timestamp,
     "cvv"             integer,
     "user_id"         integer
@@ -54,7 +54,7 @@ ALTER TABLE "recharges"
 
 
 
-INSERT INTO "users" ("name", "last_name","document_type", "document_number", "password", "phone", "email","card_number") values ('erich', 'hc','DNI', 75999263, '12345','956738065','erich@gmail.com',123455678);
+INSERT INTO "users" ("name", "last_name","document_type", "document_number", "password", "phone", "email","card_number") values ('erich', 'hc','DNI', '75999263', '12345','956738065','erich@gmail.com',123455678);
 INSERT INTO "bank_cards" ("card_number", "expiration_date","cvv","user_id") values (123455678, '2023-09-01 00:00:00', 123, 1);
 INSERT INTO "transport_cards" ("card_number", "balance","user_id") values ('023232425', 45.00, 1);
 INSERT INTO "recharges" ("amount","created_at","type_recharge_of_days","transpocard_id","bankcard_id") values (45.00, '2021-09-01 00:00:00', 30, 1, 1);

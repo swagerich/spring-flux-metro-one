@@ -16,7 +16,7 @@ public class UserRequest {
 
     private String documentType;
 
-    private Long documentNumber;
+    private String documentNumber;
 
     private String password;
 

@@ -1,0 +1,14 @@
+spring:
+  r2dbc:
+    url: r2dbc:postgresql://spring-postgre.postgres.database.azure.com:5432/metro_one
+    username: dev
+    password:
+  flyway:
+    user: dev
+    password:
+    url: jdbc:postgresql://spring-postgre.postgres.database.azure.com:5432/metro_one
+    locations: classpath:db/migration
+
+jwt:
+  secret: e7918a5ed84f1c35da180cadc375efa01bd50323f27b747bd6b802cefa48f487
+  expiration: 3600000

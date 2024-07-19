@@ -1,16 +1,7 @@
 spring:
-  webflux:
-    base-path: /api/v1/
-  r2dbc:
-    url: r2dbc:postgresql://localhost:5432/metro_one
-    username: postgres
-    password: 12345
-  flyway:
-    user: postgres
-    password: 12345
-    url: jdbc:postgresql://localhost:5432/metro_one
-    locations: classpath:db/migration
+  profiles:
+    active: dev
 
 springdoc:
-  swagger-ui:
-    path: /swagger-ui-metro/index.html
+      swagger-ui:
+        path: /swagger-ui-metro/index.html

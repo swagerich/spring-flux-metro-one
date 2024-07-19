@@ -2,6 +2,7 @@ package com.metro.one.handler;
 
 import com.metro.one.exception.BadRequestException;
 import com.metro.one.exception.NotFoundException;
+import com.metro.one.exception.UnauthorizedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -23,6 +24,14 @@ public class GlobalHandlerException {
     public ProblemDetail handleBadRequestException(BadRequestException ex){
         ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.BAD_REQUEST);
         problemDetail.setTitle("Bad_Request");
+        problemDetail.setDetail(ex.getMessage());
+        return problemDetail;
+    }
+
+    @ExceptionHandler(UnauthorizedException.class)
+    public ProblemDetail handleUnauthorizedException(UnauthorizedException ex){
+        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.UNAUTHORIZED);
+        problemDetail.setTitle("Unauthorized");
         problemDetail.setDetail(ex.getMessage());
         return problemDetail;
     }

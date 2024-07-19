@@ -6,10 +6,13 @@ import com.metro.one.services.TransportCardService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import static com.metro.one.utils.endpoints.ApiVersion.*;
+
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("transport-card")
+@RequestMapping(V1 + "transport-card")
 public class TransportCardController implements TransportCardApi {
 
 
@@ -21,7 +24,7 @@ public class TransportCardController implements TransportCardApi {
 
     @Override
     public ResponseEntity<Mono<TransportCardResponse>> fetchAllTransportCard(Long userId, Long transportCardId) {
-        return ResponseEntity.ok(transportCardService.fetchTransportCardByUserIdOrTransporCardId(userId,transportCardId));
+        return ResponseEntity.ok(transportCardService.fetchTransportCardByUserIdOrTransporCardId(userId, transportCardId));
     }
 
 }

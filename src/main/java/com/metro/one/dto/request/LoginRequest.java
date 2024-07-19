@@ -7,7 +7,7 @@ import lombok.Data;
 @Builder
 public class LoginRequest {
 
-    private Long dni;
+    private String dni;
 
     private String password;
 }
