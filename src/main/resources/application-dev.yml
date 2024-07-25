@@ -12,3 +12,7 @@ spring:
 jwt:
   secret: e7918a5ed84f1c35da180cadc375efa01bd50323f27b747bd6b802cefa48f487
   expiration: 1800000
+
+prometeo:
+  end_point: https://account-validation.sandbox.prometeoapi.com/validate-account/
+  api_key: TBqA5j4KTElNcKEoUSEETH3Pm2QMIqXlYWKy961XK3eqPkFZTzUKyqK73fbkJfey

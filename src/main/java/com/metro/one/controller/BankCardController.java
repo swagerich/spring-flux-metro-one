@@ -1,7 +1,9 @@
 package com.metro.one.controller;
 
 import com.metro.one.controller.api.BankCardApi;
+import com.metro.one.dto.request.AccountBankRequest;
 import com.metro.one.dto.request.BankCardRequest;
+import com.metro.one.dto.response.AccountBankResponse;
 import com.metro.one.dto.response.BankCardResponse;
 import com.metro.one.services.BankCardService;
 import org.springframework.http.HttpStatus;
@@ -26,6 +28,11 @@ public class BankCardController implements BankCardApi {
     @Override
     public ResponseEntity<Mono<BankCardResponse>> createBankCard(Mono<BankCardRequest> bankCard, Long userId) {
         return new ResponseEntity<>(bankCardService.createBankCard(bankCard, userId), HttpStatus.CREATED);
+    }
+
+    @Override
+    public ResponseEntity<Mono<AccountBankResponse>> createMockBankCard(AccountBankRequest bankCard,Long userId) {
+        return new ResponseEntity<>(bankCardService.createMockBankCard(bankCard,userId), HttpStatus.CREATED);
     }
 
     @Override

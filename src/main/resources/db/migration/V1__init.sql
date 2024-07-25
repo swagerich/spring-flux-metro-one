@@ -23,7 +23,7 @@ CREATE TABLE "transport_cards"
 CREATE TABLE "bank_cards"
 (
     "bankcard_id"     SERIAL PRIMARY KEY,
-    "card_number"     bigint UNIQUE,
+    "card_number"     varchar UNIQUE,
     "expiration_date" timestamp,
     "cvv"             integer,
     "user_id"         integer

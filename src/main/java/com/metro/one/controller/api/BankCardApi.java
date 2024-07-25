@@ -1,6 +1,8 @@
 package com.metro.one.controller.api;
 
+import com.metro.one.dto.request.AccountBankRequest;
 import com.metro.one.dto.request.BankCardRequest;
+import com.metro.one.dto.response.AccountBankResponse;
 import com.metro.one.dto.response.BankCardResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -20,6 +22,14 @@ public interface BankCardApi {
             @ApiResponse(responseCode = "400", description = "Bad request Error create bank card")
     })
     ResponseEntity<Mono<BankCardResponse>> createBankCard(@RequestBody Mono<BankCardRequest> bankCard, @PathVariable Long userId);
+
+    @PostMapping(value = "/validate-account/{userId}")
+    @Operation(summary = "Create a validation Bank Card", description = "Create a validation Bank Card")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Bank Card validation successfully"),
+            @ApiResponse(responseCode = "400", description = "Bad request Error validation bank card")
+    })
+    ResponseEntity<Mono<AccountBankResponse>> createMockBankCard(@RequestBody AccountBankRequest bankCard, @PathVariable Long userId);
 
 
     @GetMapping(value = "/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)

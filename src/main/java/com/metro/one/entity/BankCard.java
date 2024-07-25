@@ -24,7 +24,7 @@ public class BankCard {
     private Long bankCardId;
 
     @Column("card_number")
-    private Long cardNumber;
+    private String cardNumber; //POR AHORA LO PUSE STRING PARA POBRAR PROMETEO
 
     @Column("expiration_date")
     private LocalDate expirationDate;
