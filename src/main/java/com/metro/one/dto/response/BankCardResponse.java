@@ -9,7 +9,7 @@ public class BankCardResponse {
 
     private Long userId;
 
-    private Long cardNumber;
+    private String cardNumber; //POR AHORA LO PUSE STRING PARA PROBAR PROMETEO
 
     private String expirationDate;
 

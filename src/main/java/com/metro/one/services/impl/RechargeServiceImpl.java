@@ -1,6 +1,6 @@
 package com.metro.one.services.impl;
 
-import com.metro.one.dto.request.PaymentBankCard;
+
 import com.metro.one.dto.response.BankCardAndRechargeResponse;
 import com.metro.one.entity.Recharge;
 import com.metro.one.exception.NotFoundException;
@@ -98,4 +98,9 @@ public class RechargeServiceImpl implements RechargeService {
                                 })
                 );
     }
+
+    /**
+     * AL IMPLEMENTAR EL TICKET DE LA RECARGA TENBEMOS QUE MOSTRAR EL TAMBIEN EL MONTO DE LA RECARGA ACTUAL, NO EL SALDO QUE TIENE acumulado
+     * por eso estoy pensando agregar un parametro mas ala base de datos en recarga como recargaActual para poder asi hacer la consulta
+     */
 }

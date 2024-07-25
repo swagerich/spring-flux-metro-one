@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @Data
 public class BankCardRequest {
 
-    private Long cardNumber;
+    private String cardNumber;
 
     private LocalDate expirationDate;
 

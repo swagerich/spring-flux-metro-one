@@ -1,6 +1,7 @@
 package com.metro.one.handler;
 
 import com.metro.one.exception.BadRequestException;
+import com.metro.one.exception.InternalServerException;
 import com.metro.one.exception.NotFoundException;
 import com.metro.one.exception.UnauthorizedException;
 import org.springframework.http.HttpStatus;
@@ -32,6 +33,14 @@ public class GlobalHandlerException {
     public ProblemDetail handleUnauthorizedException(UnauthorizedException ex){
         ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.UNAUTHORIZED);
         problemDetail.setTitle("Unauthorized");
+        problemDetail.setDetail(ex.getMessage());
+        return problemDetail;
+    }
+
+    @ExceptionHandler(InternalServerException.class)
+    public ProblemDetail handleInternalServerException(InternalServerException ex){
+        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+        problemDetail.setTitle("Internal_Server_Error");
         problemDetail.setDetail(ex.getMessage());
         return problemDetail;
     }
